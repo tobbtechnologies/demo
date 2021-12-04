@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+	/****************************************************************************************
+	*@Company:              Tobb Technologies (Pty) Ltd                  					*
+	*@Year:                 2016 - 2021                                          			*
+	*@Deveopers:            Bernard Sibanda, Bongiwe Sibanda,                 				*
+	*@Source Code License:  GNU GENERAL PUBLIC LICENSE(Version 3, 29 June 2007)     		*
+	*@Licence url:          https://www.gnu.org/licenses/quick-guide-gplv3.html             *
+	*@website:              http://www.tobb.co.za                           				*
+	*@emails:               besi@tobb.co.za, bongi@tobb.co.za                				*
+	****************************************************************************************/	
+-->
+<html>
+	<head>
+		<title>demo </title>
+		<meta charset="UTF-8">
+		<meta name="description" content="ITLP SRC and Prefects  home page">
+		<meta name="keywords" content="HTML, CSS">
+		<meta name="author" content="tobb technologies ">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="#">
+		<style>
+		 .card
+		 {
+				padding:1em;
+				background-color:#f8f8f8;
+				border-radius:3px;
+				border: 1px solid #d6d6d6;
+				margin-top:5px;
+				cursor:pointer;
+				text-align:center;
+		 }
+		 .inputClass
+		 {
+			display: block;
+			height: 30px;
+			width:80%;
+			border: 1px solid rgb(157, 255, 157);
+			background: #fff;
+			padding:1em;
+			border-radius: 4px;
+			font-size: 20px;
+			color: blue;
+			box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px inset;
+			text-align: left;
+			font-style: normal;
+			cursor: default;
+			margin-top:3px;
+		}
+		 .vScrollBar
+		{
+			max-height: 150px;
+			overflow-y: scroll;
+		}
+		.btnClass
+		{
+			display: block;
+			height: 40px;
+			width:93%;
+			border: 1px solid rgb(157, 255, 157);
+			background: #f8f8f8;
+			border-radius: 4px;
+			font-size: 20px;
+			color: blue;
+			box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px inset;
+			text-align: left;
+			font-style: normal;
+			cursor: default;
+			margin-top:3px;
+			text-align:center;
+		}
+		</style>
+	</head>
+	<body>
+			
+			<div class="card">
+				<input 
+					type="text" 
+					id="name" 
+					class="inputClass" 
+					placeholder="Enter name" 
+					onclick="removP(this)" 
+					onblur="greet(this)" 
+				>				
+				<input 
+					type="text" 
+					id="surname" 
+					class="inputClass" 
+					placeholder="Enter surname" 
+					onclick="removP(this)" 
+					onblur="greet(this)" 
+				>
+				<input 
+					type="button" 
+					id="surname" 
+					class="btnClass" 					
+					onclick="message()" 
+					value="Submit"
+				>
+			</div>	
+	
+			<div id="message" class="card vScrollBar">
+					
+			</div>			
+			
+	</body>
+	<script>
+	function removP(e)
+	{
+		e.placeholder = '';
+	}
+	
+	 function greet(e)
+	 {
+		var name = '';
+		
+		var surname = '';
+		
+		if(e.id === 'name')
+		{
+			name = e.value;
+		}
+		else if(e.id === 'surname')
+		{
+			surname = e.value;
+		}
+		var xmlhttp = new XMLHttpRequest();
+		
+		xmlhttp.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("message").innerHTML += this.responseText;
+			}
+		};
+		
+		xmlhttp.open("GET", "api.php?name="+name+'&surname='+surname, true);
+		
+		xmlhttp.send();
+	 }
+	 
+	  function message()
+	 {
+		var name = document.getElementById("name").value;
+		
+		var surname = document.getElementById("surname").value;
+		
+		var xmlhttp = new XMLHttpRequest();
+		
+		xmlhttp.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("message").innerHTML += this.responseText;
+			}
+		};
+		
+		xmlhttp.open("GET", "api.php?name="+name+'&surname='+surname, true);
+		
+		xmlhttp.send();
+	 }
+	</script>
+</html>
